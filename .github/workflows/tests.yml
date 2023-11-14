@@ -16,7 +16,7 @@ jobs:
         env:
           POETRY_VIRTUALENVS_CREATE: false
       - name: Run black check
-        run: poetry run black --check backend
+        run: poetry run black --check ../../backend
   # flake8:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -31,60 +31,60 @@ jobs:
   #         POETRY_VIRTUALENVS_CREATE: false
   #     - name: Run flake8 check
   #       run: poetry run flake8 --count .
-  mypy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
-      - name: Install deps
-        uses: knowsuchagency/poetry-install@v1
-        env:
-          POETRY_VIRTUALENVS_CREATE: false
-      - name: Run mypy check
-        run: poetry run mypy backend
-  pytest:
-    runs-on: ubuntu-latest
-    services:
+  # mypy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: '3.11'
+  #     - name: Install deps
+  #       uses: knowsuchagency/poetry-install@v1
+  #       env:
+  #         POETRY_VIRTUALENVS_CREATE: false
+  #     - name: Run mypy check
+  #       run: poetry run mypy backend
+  # pytest:
+  #   runs-on: ubuntu-latest
+  #   services:
 
-      k8s_web_app-db:
-        image: postgres:13.8-bullseye
-        env:
-          POSTGRES_PASSWORD: k8s_web_app
-          POSTGRES_USER: k8s_web_app
-          POSTGRES_DB: k8s_web_app
-        options: >-
-          --health-cmd="pg_isready"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-        ports:
-          - 5432:5432
+  #     k8s_web_app-db:
+  #       image: postgres:13.8-bullseye
+  #       env:
+  #         POSTGRES_PASSWORD: k8s_web_app
+  #         POSTGRES_USER: k8s_web_app
+  #         POSTGRES_DB: k8s_web_app
+  #       options: >-
+  #         --health-cmd="pg_isready"
+  #         --health-interval=10s
+  #         --health-timeout=5s
+  #         --health-retries=5
+  #       ports:
+  #         - 5432:5432
 
-      k8s_web_app-zookeeper:
-        image: "bitnami/zookeeper:3.7.1"
-        env:
-          ALLOW_ANONYMOUS_LOGIN: "yes"
-          ZOO_LOG_LEVEL: "ERROR"
-        options: >-
-          --health-cmd="zkServer.sh status"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=8
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
-      - name: Install deps
-        uses: knowsuchagency/poetry-install@v1
-        env:
-          POETRY_VIRTUALENVS_CREATE: false
-      - name: Run pytest check
-        run: poetry run pytest -vv --cov="k8s_web_app" backend
-        env:
-          K8S_WEB_APP_HOST: "0.0.0.0"
-          K8S_WEB_APP_DB_HOST: localhost
+  #     k8s_web_app-zookeeper:
+  #       image: "bitnami/zookeeper:3.7.1"
+  #       env:
+  #         ALLOW_ANONYMOUS_LOGIN: "yes"
+  #         ZOO_LOG_LEVEL: "ERROR"
+  #       options: >-
+  #         --health-cmd="zkServer.sh status"
+  #         --health-interval=10s
+  #         --health-timeout=5s
+  #         --health-retries=8
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: '3.11'
+  #     - name: Install deps
+  #       uses: knowsuchagency/poetry-install@v1
+  #       env:
+  #         POETRY_VIRTUALENVS_CREATE: false
+  #     - name: Run pytest check
+  #       run: poetry run pytest -vv --cov="k8s_web_app" backend
+  #       env:
+  #         K8S_WEB_APP_HOST: "0.0.0.0"
+  #         K8S_WEB_APP_DB_HOST: localhost

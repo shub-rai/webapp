@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: k8s_web_app:latest
+          image: backend:latest
           readinessProbe:
             httpGet:
               path: /api/health
@@ -24,13 +24,13 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
           env:
-            - name: K8S_WEB_APP_HOST
+            - name: backend_HOST
               value: "0.0.0.0"
-            - name: K8S_WEB_APP_WORKERS_COUNT
+            - name: backend_WORKERS_COUNT
               value: "10"
-            - name: K8S_WEB_APP_DB_HOST
+            - name: backend_DB_HOST
               value: "k8s-web-app-db-service"
-            - name: K8S_WEB_APP_REDIS_HOST
+            - name: backend_REDIS_HOST
               value: "k8s-web-app-redis-service"
           resources:
             limits:

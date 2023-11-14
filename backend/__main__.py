@@ -1,14 +1,14 @@
 import uvicorn
 
-from k8s_web_app.gunicorn_runner import GunicornApplication
-from k8s_web_app.settings import settings
+from backend.gunicorn_runner import GunicornApplication
+from backend.settings import settings
 
 
 def main() -> None:
     """Entrypoint of the application."""
     if settings.reload:
         uvicorn.run(
-            "k8s_web_app.web.application:get_app",
+            "backend.web.application:get_app",
             workers=settings.workers_count,
             host=settings.host,
             port=settings.port,
@@ -21,7 +21,7 @@ def main() -> None:
         # option is not used, because reload
         # feature doen't work with Uvicorn workers.
         GunicornApplication(
-            "k8s_web_app.web.application:get_app",
+            "backend.web.application:get_app",
             host=settings.host,
             port=settings.port,
             workers=settings.workers_count,

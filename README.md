@@ -1,4 +1,4 @@
-# k8s_web_app
+# backend
 
 This project was generated using fastapi_template.
 
@@ -11,7 +11,7 @@ To run the project use this set of commands:
 
 ```bash
 poetry install
-poetry run python -m k8s_web_app
+poetry run python -m backend
 ```
 
 This will start the server on the configured host.
@@ -46,8 +46,8 @@ docker-compose -f deploy/docker-compose.yml --project-directory . build
 ## Project structure
 
 ```bash
-$ tree "k8s_web_app"
-k8s_web_app
+$ tree "backend"
+backend
 ├── conftest.py  # Fixtures for all tests.
 ├── db  # module contains db configurations
 │   ├── dao  # Data Access Objects. Contains different classes to interact with database.
@@ -71,18 +71,18 @@ This application can be configured with environment variables.
 You can create `.env` file in the root directory and place all
 environment variables here.
 
-All environment variables should start with "K8S_WEB_APP_" prefix.
+All environment variables should start with "backend_" prefix.
 
-For example if you see in your "k8s_web_app/settings.py" a variable named like
-`random_parameter`, you should provide the "K8S_WEB_APP_RANDOM_PARAMETER"
+For example if you see in your "backend/settings.py" a variable named like
+`random_parameter`, you should provide the "backend_RANDOM_PARAMETER"
 variable to configure the value. This behaviour can be changed by overriding `env_prefix` property
-in `k8s_web_app.settings.Settings.Config`.
+in `backend.settings.Settings.Config`.
 
 An example of .env file:
 ```bash
-K8S_WEB_APP_RELOAD="True"
-K8S_WEB_APP_PORT="8000"
-K8S_WEB_APP_ENVIRONMENT="dev"
+backend_RELOAD="True"
+backend_PORT="8000"
+backend_ENVIRONMENT="dev"
 ```
 
 You can read more about BaseSettings class here: https://pydantic-docs.helpmanual.io/usage/settings/
@@ -119,7 +119,7 @@ If you haven't pushed to docker registry yet, you can build image locally.
 
 ```bash
 docker-compose -f deploy/docker-compose.yml --project-directory . build
-docker save --output k8s_web_app.tar k8s_web_app:latest
+docker save --output backend.tar backend:latest
 ```
 
 ## Migrations
@@ -170,7 +170,7 @@ For running tests on your local machine.
 
 I prefer doing it with docker:
 ```
-docker run -p "5432:5432" -e "POSTGRES_PASSWORD=k8s_web_app" -e "POSTGRES_USER=k8s_web_app" -e "POSTGRES_DB=k8s_web_app" postgres:13.8-bullseye
+docker run -p "5432:5432" -e "POSTGRES_PASSWORD=backend" -e "POSTGRES_USER=backend" -e "POSTGRES_DB=backend" postgres:13.8-bullseye
 ```
 
 

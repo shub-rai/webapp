@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from k8s_web_app.db.models.users import UserCreate  # type: ignore
-from k8s_web_app.db.models.users import UserRead  # type: ignore
-from k8s_web_app.db.models.users import UserUpdate  # type: ignore
-from k8s_web_app.db.models.users import api_users  # type: ignore
-from k8s_web_app.db.models.users import auth_cookie  # type: ignore
-from k8s_web_app.db.models.users import auth_jwt  # type: ignore
+from backend.db.models.users import UserCreate  # type: ignore
+from backend.db.models.users import UserRead  # type: ignore
+from backend.db.models.users import UserUpdate  # type: ignore
+from backend.db.models.users import api_users  # type: ignore
+from backend.db.models.users import auth_cookie  # type: ignore
+from backend.db.models.users import auth_jwt  # type: ignore
 
 router = APIRouter()
 

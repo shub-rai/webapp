@@ -13,11 +13,11 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from k8s_web_app.db.dependencies import get_db_session
-from k8s_web_app.db.utils import create_database, drop_database
-from k8s_web_app.services.redis.dependency import get_redis_pool
-from k8s_web_app.settings import settings
-from k8s_web_app.web.application import get_app
+from backend.db.dependencies import get_db_session
+from backend.db.utils import create_database, drop_database
+from backend.services.redis.dependency import get_redis_pool
+from backend.settings import settings
+from backend.web.application import get_app
 
 
 @pytest.fixture(scope="session")
@@ -37,8 +37,8 @@ async def _engine() -> AsyncGenerator[AsyncEngine, None]:
 
     :yield: new engine.
     """
-    from k8s_web_app.db.meta import meta  # noqa: WPS433
-    from k8s_web_app.db.models import load_all_models  # noqa: WPS433
+    from backend.db.meta import meta  # noqa: WPS433
+    from backend.db.models import load_all_models  # noqa: WPS433
 
     load_all_models()
 

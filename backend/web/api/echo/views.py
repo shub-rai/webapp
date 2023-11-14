@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from k8s_web_app.web.api.echo.schema import Message
+from backend.web.api.echo.schema import Message
 
 router = APIRouter()
 

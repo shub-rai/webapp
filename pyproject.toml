@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "k8s_web_app"
+name = "backend"
 version = "0.1.0"
 description = ""
 authors = [
@@ -47,7 +47,7 @@ httpx = "^0.23.3"
 [tool.isort]
 profile = "black"
 multi_line_output = 3
-src_paths = ["k8s_web_app",]
+src_paths = ["backend",]
 
 [tool.mypy]
 strict = true

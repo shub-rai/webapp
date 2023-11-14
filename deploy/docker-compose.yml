@@ -6,17 +6,17 @@ services:
       context: .
       dockerfile: ./deploy/Dockerfile
       target: prod
-    image: k8s_web_app:${K8S_WEB_APP_VERSION:-latest}
+    image: backend:${backend_VERSION:-latest}
     restart: always
     env_file:
       - .env
     labels:
       # Enables traefik for this container.
       - traefik.enable=true
-      - traefik.http.routers.k8s_web_app.rule=Host(`${K8S_WEB_APP_TRAEFIK_HOST:-k8s_web_app.localhost}`)
-      - traefik.http.routers.k8s_web_app.entrypoints=http
-      - traefik.http.routers.k8s_web_app.service=k8s_web_app
-      - traefik.http.services.k8s_web_app.loadbalancer.server.port=${K8S_WEB_APP_PORT:-8000}
+      - traefik.http.routers.backend.rule=Host(`${backend_TRAEFIK_HOST:-backend.localhost}`)
+      - traefik.http.routers.backend.entrypoints=http
+      - traefik.http.routers.backend.service=backend
+      - traefik.http.services.backend.loadbalancer.server.port=${backend_PORT:-8000}
     networks:
       - default
       - traefik-shared
@@ -26,47 +26,47 @@ services:
       redis:
         condition: service_healthy
     environment:
-      K8S_WEB_APP_HOST: 0.0.0.0
-      K8S_WEB_APP_DB_HOST: k8s_web_app-db
-      K8S_WEB_APP_DB_PORT: 5432
-      K8S_WEB_APP_DB_USER: k8s_web_app
-      K8S_WEB_APP_DB_PASS: k8s_web_app
-      K8S_WEB_APP_DB_BASE: k8s_web_app
-      K8S_WEB_APP_REDIS_HOST: k8s_web_app-redis
+      backend_HOST: 0.0.0.0
+      backend_DB_HOST: backend-db
+      backend_DB_PORT: 5432
+      backend_DB_USER: backend
+      backend_DB_PASS: backend
+      backend_DB_BASE: backend
+      backend_REDIS_HOST: backend-redis
 
   db:
     image: postgres:13.8-bullseye
-    hostname: k8s_web_app-db
+    hostname: backend-db
     environment:
-      POSTGRES_PASSWORD: "k8s_web_app"
-      POSTGRES_USER: "k8s_web_app"
-      POSTGRES_DB: "k8s_web_app"
+      POSTGRES_PASSWORD: "backend"
+      POSTGRES_USER: "backend"
+      POSTGRES_DB: "backend"
     volumes:
-      - k8s_web_app-db-data:/var/lib/postgresql/data
+      - backend-db-data:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: pg_isready -U k8s_web_app
+      test: pg_isready -U backend
       interval: 2s
       timeout: 3s
       retries: 40
 
   migrator:
-    image: k8s_web_app:${K8S_WEB_APP_VERSION:-latest}
+    image: backend:${backend_VERSION:-latest}
     restart: "no"
     command: alembic upgrade head
     environment:
-      K8S_WEB_APP_DB_HOST: k8s_web_app-db
-      K8S_WEB_APP_DB_PORT: 5432
-      K8S_WEB_APP_DB_USER: k8s_web_app
-      K8S_WEB_APP_DB_PASS: k8s_web_app
-      K8S_WEB_APP_DB_BASE: k8s_web_app
+      backend_DB_HOST: backend-db
+      backend_DB_PORT: 5432
+      backend_DB_USER: backend
+      backend_DB_PASS: backend
+      backend_DB_BASE: backend
     depends_on:
       db:
         condition: service_healthy
 
   redis:
     image: bitnami/redis:6.2.5
-    hostname: "k8s_web_app-redis"
+    hostname: "backend-redis"
     restart: always
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
@@ -78,7 +78,7 @@ services:
 
   zookeeper:
     image: "bitnami/zookeeper:3.7.1"
-    hostname: "k8s_web_app-zookeeper"
+    hostname: "backend-zookeeper"
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
       ZOO_LOG_LEVEL: "ERROR"
@@ -89,8 +89,8 @@ services:
       retries: 30
 
 volumes:
-  k8s_web_app-db-data:
-    name: k8s_web_app-db-data
+  backend-db-data:
+    name: backend-db-data
 
 networks:
   # Network for traefik.

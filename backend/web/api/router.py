@@ -1,6 +1,6 @@
 from fastapi.routing import APIRouter
 
-from k8s_web_app.web.api import dummy, echo, monitoring, redis, users
+from backend.web.api import dummy, echo, monitoring, redis, users
 
 api_router = APIRouter()
 api_router.include_router(monitoring.router)

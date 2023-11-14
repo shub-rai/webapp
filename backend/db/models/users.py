@@ -12,9 +12,9 @@ from fastapi_users.authentication import (
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from k8s_web_app.db.base import Base
-from k8s_web_app.db.dependencies import get_db_session
-from k8s_web_app.settings import settings
+from backend.db.base import Base
+from backend.db.dependencies import get_db_session
+from backend.settings import settings
 
 
 class User(SQLAlchemyBaseUserTableUUID, Base):

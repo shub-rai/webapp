@@ -24,7 +24,7 @@ RUN apt-get purge -y \
 COPY . /app/src/
 RUN poetry install --only main
 
-CMD ["/usr/local/bin/python", "-m", "k8s_web_app"]
+CMD ["/usr/local/bin/python", "-m", "backend"]
 
 FROM prod as dev
 

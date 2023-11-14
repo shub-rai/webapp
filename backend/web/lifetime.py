@@ -3,8 +3,8 @@ from typing import Awaitable, Callable
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from k8s_web_app.services.redis.lifetime import init_redis, shutdown_redis
-from k8s_web_app.settings import settings
+from backend.services.redis.lifetime import init_redis, shutdown_redis
+from backend.settings import settings
 
 
 def _setup_db(app: FastAPI) -> None:  # pragma: no cover

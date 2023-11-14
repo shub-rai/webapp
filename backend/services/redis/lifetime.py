@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from redis.asyncio import ConnectionPool
 
-from k8s_web_app.settings import settings
+from backend.settings import settings
 
 
 def init_redis(app: FastAPI) -> None:  # pragma: no cover

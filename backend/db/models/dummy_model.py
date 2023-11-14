@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql.sqltypes import String
 
-from k8s_web_app.db.base import Base
+from backend.db.base import Base
 
 
 class DummyModel(Base):

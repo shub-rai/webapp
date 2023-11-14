@@ -3,8 +3,8 @@ from importlib import metadata
 from fastapi import FastAPI
 from fastapi.responses import UJSONResponse
 
-from k8s_web_app.web.api.router import api_router
-from k8s_web_app.web.lifetime import register_shutdown_event, register_startup_event
+from backend.web.api.router import api_router
+from backend.web.lifetime import register_shutdown_event, register_startup_event
 
 
 def get_app() -> FastAPI:
@@ -16,8 +16,8 @@ def get_app() -> FastAPI:
     :return: application.
     """
     app = FastAPI(
-        title="k8s_web_app",
-        version=metadata.version("k8s_web_app"),
+        title="backend",
+        version=metadata.version("backend"),
         docs_url="/api/docs",
         redoc_url="/api/redoc",
         openapi_url="/api/openapi.json",

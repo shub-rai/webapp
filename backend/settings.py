@@ -44,13 +44,13 @@ class Settings(BaseSettings):
     # Variables for the database
     db_host: str = "localhost"
     db_port: int = 5432
-    db_user: str = "k8s_web_app"
-    db_pass: str = "k8s_web_app"
-    db_base: str = "k8s_web_app"
+    db_user: str = "backend"
+    db_pass: str = "backend"
+    db_base: str = "backend"
     db_echo: bool = False
 
     # Variables for Redis
-    redis_host: str = "k8s_web_app-redis"
+    redis_host: str = "backend-redis"
     redis_port: int = 6379
     redis_user: Optional[str] = None
     redis_pass: Optional[str] = None
@@ -93,7 +93,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
         env_file=".env",
-        env_prefix="K8S_WEB_APP_",
+        env_prefix="backend_",
         env_file_encoding="utf-8",
     )
 

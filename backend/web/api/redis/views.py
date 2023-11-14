@@ -2,8 +2,8 @@ from fastapi import APIRouter
 from fastapi.param_functions import Depends
 from redis.asyncio import ConnectionPool, Redis
 
-from k8s_web_app.services.redis.dependency import get_redis_pool
-from k8s_web_app.web.api.redis.schema import RedisValueDTO
+from backend.services.redis.dependency import get_redis_pool
+from backend.web.api.redis.schema import RedisValueDTO
 
 router = APIRouter()
 

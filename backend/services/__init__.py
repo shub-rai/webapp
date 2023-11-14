@@ -1,1 +1,1 @@
-"""Services for k8s_web_app."""
+"""Services for backend."""

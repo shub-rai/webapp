@@ -3,9 +3,9 @@ from typing import List
 from fastapi import APIRouter
 from fastapi.param_functions import Depends
 
-from k8s_web_app.db.dao.dummy_dao import DummyDAO
-from k8s_web_app.db.models.dummy_model import DummyModel
-from k8s_web_app.web.api.dummy.schema import DummyModelDTO, DummyModelInputDTO
+from backend.db.dao.dummy_dao import DummyDAO
+from backend.db.models.dummy_model import DummyModel
+from backend.web.api.dummy.schema import DummyModelDTO, DummyModelInputDTO
 
 router = APIRouter()
 

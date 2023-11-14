@@ -1,4 +1,4 @@
-"""k8s_web_app models."""
+"""backend models."""
 import pkgutil
 from pathlib import Path
 
@@ -8,7 +8,7 @@ def load_all_models() -> None:
     package_dir = Path(__file__).resolve().parent
     modules = pkgutil.walk_packages(
         path=[str(package_dir)],
-        prefix="k8s_web_app.db.models.",
+        prefix="backend.db.models.",
     )
     for module in modules:
         __import__(module.name)  # noqa: WPS421

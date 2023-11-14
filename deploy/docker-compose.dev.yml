@@ -12,4 +12,4 @@ services:
     - .:/app/src/
     environment:
       # Enables autoreload.
-      K8S_WEB_APP_RELOAD: "True"
+      backend_RELOAD: "True"

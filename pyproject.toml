@@ -77,12 +77,12 @@ filterwarnings = [
     "ignore:.*unclosed.*:ResourceWarning",
 ]
 env = [
-    "K8S_WEB_APP_ENVIRONMENT=pytest",
-    "K8S_WEB_APP_DB_BASE=k8s_web_app_test",
+    "BACKEND_ENVIRONMENT=pytest",
+    "BACKEND_DB_BASE=backend_test",
 ]
 
 [fastapi-template.options]
-project_name = "k8s_web_app"
+project_name = "backend"
 api_type = "rest"
 enable_redis = "True"
 enable_rmq = "None"

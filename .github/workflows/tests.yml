@@ -15,8 +15,10 @@ jobs:
         uses: knowsuchagency/poetry-install@v1
         env:
           POETRY_VIRTUALENVS_CREATE: false
+      - name: Run PWD
+        run: pwd
       - name: Run black check
-        run: poetry run black --check ../../backend
+        run: poetry run black --check ./backend
   # flake8:
   #   runs-on: ubuntu-latest
   #   steps:

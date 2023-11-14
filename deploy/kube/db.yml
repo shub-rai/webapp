@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: k8s-web-app
-  name: k8s-web-app-db
+  namespace: backend
+  name: backend-db
 spec:
   selector:
     matchLabels:
-      app: k8s-web-app-db
+      app: backend-db
   template:
     metadata:
       labels:
-        app: k8s-web-app-db
+        app: backend-db
     spec:
       containers:
         - name: database
@@ -33,11 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: k8s-web-app
-  name: "k8s-web-app-db-service"
+  namespace: backend
+  name: "backend-db-service"
 spec:
   selector:
-    app: k8s-web-app-db
+    app: backend-db
   ports:
     - port: 5432
       targetPort: 5432
@@ -45,8 +45,8 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  namespace: k8s-web-app
-  name: k8s-web-app-migrator
+  namespace: backend
+  name: backend-migrator
 spec:
   ttlSecondsAfterFinished: 100
   template:
@@ -64,11 +64,11 @@ spec:
             cpu: "250m"
         env:
           - name: "backend_DB_HOST"
-            value: "k8s-web-app-db-service"
+            value: "backend-db-service"
       initContainers:
         - name: wait-for-db
           image: toschneck/wait-for-it:latest
-          command: ["./wait-for-it.sh", "-t", "60", "k8s-web-app-db-service:5432"]
+          command: ["./wait-for-it.sh", "-t", "60", "backend-db-service:5432"]
       restartPolicy: Never
 
 ---

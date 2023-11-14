@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: "k8s-web-app"
-  name: "k8s-web-app-rmq"
+  namespace: "backend"
+  name: "backend-rmq"
 spec:
   selector:
     matchLabels:
-      app: "k8s-web-app-rmq"
+      app: "backend-rmq"
   template:
     metadata:
       labels:
-        app: "k8s-web-app-rmq"
+        app: "backend-rmq"
     spec:
       containers:
         - name: rabbit
@@ -40,11 +40,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: "k8s-web-app"
-  name: "k8s-web-app-rmq-service"
+  namespace: "backend"
+  name: "backend-rmq-service"
 spec:
   selector:
-    app: "k8s-web-app-rmq"
+    app: "backend-rmq"
   ports:
     - port: 5672
       targetPort: amqp
